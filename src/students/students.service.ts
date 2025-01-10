@@ -12,13 +12,13 @@ export class StudentsService {
     ) {}
 
 
-    // Create Function
+    // Create Students Function
     async createStudent(data: Partial<Student>): Promise<Student> {
         const student = this.studentRepository.create(data);
         return this.studentRepository.save(student);
     }
 
-    // Read Function
+    // Read/Find Students Function
     async getStudents(): Promise<Student[]> {
         return this.studentRepository.find()
     }
@@ -30,5 +30,12 @@ export class StudentsService {
         }
 
         return student; 
+    }
+
+    // Update Student Function
+    async updateStudent(id: number, data: Partial<Student>): Promise<Student> {
+        const student = await this.getStudentsByID(id);
+        Object.assign(student, data);
+        return this.studentRepository.save(student);
     }
 }
